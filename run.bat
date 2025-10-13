@@ -1,3 +1,4 @@
+@echo off
 REM ########################################################
 REM # This auto run script will run all the commands       #
 REM # needed to autonomously setup the website from start  #
