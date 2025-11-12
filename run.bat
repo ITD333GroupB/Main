@@ -32,5 +32,5 @@ NET START MSSQLSERVER
 
 REM Secondly, with the server instance running, startup the backend application.
 REM TODO: UPDATE THIS COMMAND
-DOTNET PUBLISH .\Backend\Project.csproj -c Release -r win-x64 -o .\Out\Backend
-START .\Out\Backend\Backend.exe
+dotnet publish .\Backend\TaskHub\TaskHub\TaskHub.csproj -c Release -r win-x64 -o .\Out
+START .\Out\TaskHub.exe
