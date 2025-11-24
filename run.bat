@@ -31,6 +31,6 @@ NET STOP MSSQLSERVER
 NET START MSSQLSERVER
 
 REM Secondly, with the server instance running, startup the backend application.
-REM TODO: UPDATE THIS COMMAND
+
 dotnet publish .\Backend\TaskHub\TaskHub\TaskHub.csproj -c Release -r win-x64 -o .\Out
 START .\Out\TaskHub.exe
