@@ -18,4 +18,4 @@
 
 ## Notes
 
-    - `Update.bat` will update all submodules to the current master branch of each repository. So this should be ran **before** the `run.bat` script is ran if you want all files to be 100% up to date.
+`Update.bat` will update all submodules to the current master branch of each repository. So this should be ran **before** the `run.bat` script is ran if you want all files to be 100% up to date.
