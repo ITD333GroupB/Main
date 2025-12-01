@@ -18,10 +18,20 @@ REG ADD "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQLS
     /v LoginMode /t REG_DWORD /d 2 /f
 
 REM Create a default user credential that we can use via the application's configuration
+ECHO INFO: Creating a default User1 credential
 SQLCMD -S localhost -E -Q "IF NOT EXISTS (SELECT 1 FROM sys.sql_logins WHERE name = 'User1') EXEC('CREATE LOGIN [User1] WITH PASSWORD = ''Pass1!'';'); ALTER LOGIN [User1] ENABLE; ALTER LOGIN [User1] WITH PASSWORD = 'Pass1!' UNLOCK;"
 
 REM Init database
-SQLCMD -S localhost -E -i "%~dp0Database\preliminary_start.sql"
+ECHO Attempting to initialize database script at %~dp0Database\db_config.sql
+IF EXIST "%~dp0Database\Scripts\db_config.sql" (
+    ECHO INFO: INIT SCRIPT FOUND
+) ELSE (
+    REM Exit and throw an error code
+    ECHO ERROR: INIT SCRIPT NOT FOUND
+    EXIT /B 1
+)
+SQLCMD -S localhost -E -i "%~dp0Database\db_config.sql"
+ECHO INFO: SQL INIT ERROR LVL - %ERRORLEVEL%
 
 REM Assign default user access to database
 SQLCMD -S localhost -d TaskHubDb -E -Q "IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name = 'User1') BEGIN CREATE USER [User1] FOR LOGIN [User1]; ALTER ROLE db_owner ADD MEMBER [User1]; END"
